@@ -1,0 +1,109 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="tailwind_config.js"></script>
+    <script src="js/modal.js"></script>
+    <style>
+        :root {
+            --color-primary: #290F56;
+            --color-secondary: #190c3a;
+            --color-bg: #110A2C;
+            --color-accent: #ec6d28;
+            --color-accent-hover: #8a3f16;
+            --color-background: #F2ECF8FF;
+            --color-text-muted: rgba(255, 255, 255, 0.28);
+            --color-modal-overlay: rgba(0, 0, 0, 0.5);
+            --color-success: #78cfb0;
+            --icon-theme: "/src/moon.png";
+        }
+
+        html, body {
+            overflow-x: hidden;
+            max-width: 100%;
+        }
+
+    </style>
+    <style type="text/tailwindcss">
+        @layer components {
+            .btn {
+                @apply bg-accent text-[#ffffff] px-3 py-2 rounded-xl hover:bg-accent-hover transition;
+            }
+            .input {
+                @apply w-full h-10 px-3 py-2 rounded-xl
+                bg-secondary placeholder:text-text-muted
+                focus:outline-none focus:border-2 focus:border-accent;
+            }
+            .modal{
+                @apply
+                hidden fixed inset-0 w-full h-full bg-[var(--color-modal-overlay)] z-[1000] flex items-center justify-center px-3;
+            }
+            .card{
+
+            }
+        }
+    </style>
+</head>
+<body class="font-[Inter] text-[#ffffff]">
+    <!--<section id="startPage" class="min-h-screen bg-[url('/src/background.svg')] bg-cover bg-center bg-no-repeat">
+        <div class="flex flex-col items-center min-h-screen">
+            <p class="text-7xl font-extrabold text-[#ffffff] pt-[220px] pb-8">Сладость или гадость</p>
+            <button  id="start_btn" class="btn text-2xl px-10 py-5 font-bold" >Начать игру</button>
+        </div>
+        <div class="modal" id="formModal1">
+            <div class="bg-primary w-full max-w-full sm:max-w-[500px] p-7 rounded-2xl relative">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg ">1 игрок</h3>
+                </div>
+                <div class="modal-body flex flex-row gap-2">
+                    <input class="input flex-1 min-w-0" id="player1Input" type="text" placeholder="Введите имя игрока" required />
+                    <button id="next_btn1" class="btn w-auto px-4"></button>
+                </div>
+            </div>
+        </div>
+        <div class="modal" id="formModal2">
+            <div class="bg-primary w-full max-w-full sm:max-w-[500px] p-7 rounded-2xl relative">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg ">2 игрок</h3>
+                </div>
+                <div class="modal-body flex flex-row gap-2">
+                    <input class="input flex-1 min-w-0" id="player2Input" type="text" placeholder="Введите имя игрока" required />
+                    <button id="next_btn2" class="btn w-auto px-4"></button>
+                </div>
+            </div>
+        </div>
+    </section>    -->
+    <section id="mainPage" class="min-h-screen bg-bg">
+        <div class="flex items-center justify-between h-screen mx-10">
+            <div class="flex-col justify-items-center w-[300px]">
+                <img src="src/ghost1.svg" alt="Ghost" class="animate-pulse w-[300px] h-[320px]">
+                <p class="text-2xl" >Игрок 1</p>
+            </div>
+            <div class="w-[300px] h-[400px] bg-primary rounded-2xl flex-col justify-items-center ">
+                <p class="mt-8 text-xl font-bold">Сладость</p>
+                <img src="src/sweet1.svg" class="mt-[70px] w-[150px] h-[150px]">
+
+            </div>
+            <div class="w-[300px] h-[400px] bg-primary rounded-2xl flex-col justify-items-center ">
+                <p class="mt-8 text-xl font-bold">Гадость</p>
+                <img src="src/dirt1.svg" class="mt-[70px] w-[150px] h-[150px]">
+
+            </div>
+            <div class="flex-col justify-items-center w-[300px]">
+                <img src="src/ghost2.svg" alt="Ghost" class="animate-pulse w-[300px] h-[320px]">
+                <p class="text-2xl" >Игрок 2</p>
+
+            </div>
+        </div>
+
+
+
+    </section>
+</body>
+</html>
