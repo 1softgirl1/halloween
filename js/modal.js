@@ -8,6 +8,12 @@ $(document).ready(function() {
     });
 
     $('#next_btn1').click(function() {
+        const player1Name = $('#player1Input').val().trim();
+        if (!player1Name) {
+            alert('Введите имя первого игрока!');
+            return;
+        }
+
         $('#formModal2')
             .removeClass('hidden')
             .css('display', 'flex')
@@ -17,10 +23,21 @@ $(document).ready(function() {
     });
 
     $('#next_btn2').click(function() {
-        $('#formModal2').fadeOut(300);
-        $('#startPage').addClass('hidden')
-        $('#mainPage').removeClass('hidden')
+        const player1Name = $('#player1Input').val().trim();
+        const player2Name = $('#player2Input').val().trim();
 
+        if (!player2Name) {
+            alert('Введите имя второго игрока!');
+            return;
+        }
+
+        const playerLabels = $('#mainPage .text-2xl');
+        playerLabels.eq(0).text(player1Name);
+        playerLabels.eq(1).text(player2Name);
+
+        $('#formModal2').fadeOut(300);
+        $('#startPage').addClass('hidden');
+        $('#mainPage').removeClass('hidden');
     });
 
     $(document).keydown(function(e) {
@@ -30,8 +47,3 @@ $(document).ready(function() {
     });
 });
 
-document.querySelectorAll('.flip-card').forEach(card => {
-    card.addEventListener('click', () => {
-        card.classList.toggle('flipped');
-    });
-});
