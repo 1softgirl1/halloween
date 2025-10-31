@@ -1,0 +1,190 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="tailwind_config.js"></script>
+
+
+    <style>
+        :root {
+            --color-primary: #290F56;
+            --color-secondary: #190c3a;
+            --color-bg: #110A2C;
+            --color-accent: #ec6d28;
+            --color-accent-hover: #8a3f16;
+            --color-background: #F2ECF8FF;
+            --color-text-muted: rgba(255, 255, 255, 0.28);
+            --color-modal-overlay: rgba(0, 0, 0, 0.5);
+        }
+
+        html, body {
+            overflow-x: hidden;
+            max-width: 100%;
+        }
+
+    </style>
+    <style type="text/tailwindcss">
+        @layer components {
+            .btn {
+                @apply bg-accent text-[#ffffff] px-3 py-2 rounded-xl hover:bg-accent-hover transition;
+            }
+            .input {
+                @apply w-full h-10 px-3 py-2 rounded-xl
+                bg-secondary placeholder:text-text-muted
+                focus:outline-none focus:border-2 focus:border-accent;
+            }
+            .modal{
+                @apply
+                hidden fixed inset-0 w-full h-full bg-[var(--color-modal-overlay)] z-[1000] flex items-center justify-center px-3;
+            }
+       
+        }
+        .flip-inner {
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+        }
+
+        .flip-card {
+            perspective: 1000px;
+        }
+
+        .flip-card .flip-inner > div {
+            backface-visibility: hidden;
+        }
+
+    </style>
+    <style>
+        .glow-active {
+            filter: drop-shadow(0 0 20px #ffffff) drop-shadow(0 0 40px #f4e6ff);
+            animation: glow-pulse 2s infinite ease-in-out;
+        }
+
+        @keyframes glow-pulse {
+            0%, 100% {
+                filter: drop-shadow(0 0 10px #f4e6ff) drop-shadow(0 0 30px #ffffff);
+                transform: scale(1);
+            }
+            50% {
+                filter: drop-shadow(0 0 25px #ffffff) drop-shadow(0 0 60px #a18fb6);
+                transform: scale(1.05);
+            }
+        }
+
+        .flip-card .flip-inner {
+            box-shadow: 0 0 20px rgba(62, 22, 113, 0.75);
+            border-radius: 1rem;
+            transition: box-shadow 0.4s ease, transform 0.6s ease;
+        }
+
+        .flip-card .flip-inner:hover {
+            box-shadow: 0 0 30px rgba(62, 22, 113, 0.75);
+            transform: scale(1.03) rotateY(5deg);
+        }
+
+        .shine-effect {
+            text-shadow: 0 0 10px #a18fb6, 0 0 20px #ffffff;
+        }
+
+
+        @keyframes button-glow {
+            0%, 100% {
+                transform: translate(0, 0);
+            }
+            50% {
+                transform: translate(25%, 25%);
+            }
+        }
+
+        .flip-inner:active {
+            box-shadow: 0 0 35px rgba(255, 200, 120, 0.8);
+        }
+    </style>
+
+</head>
+<body class="font-[Inter] text-[#ffffff]">
+    <section id="startPage" class="min-h-screen bg-[url('./src/background.svg')] bg-cover bg-center bg-no-repeat">
+        <div class="flex flex-col items-center min-h-screen">
+            <p class="shine-effect text-7xl font-extrabold text-[#ffffff] pt-[220px] pb-8">Сладость или гадость</p>
+            <button  id="start_btn" class="btn text-2xl px-10 py-5 font-bold" >Начать игру</button>
+        </div>
+        <div class="modal" id="formModal1">
+            <div class="bg-primary w-full max-w-full sm:max-w-[500px] p-7 rounded-2xl relative">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg ">1 игрок</h3>
+                </div>
+                <div class="modal-body flex flex-row gap-2">
+                    <input class="input flex-1 min-w-0" id="player1Input" type="text" placeholder="Введите имя игрока" required />
+                    <button id="next_btn1" class="btn w-auto px-4 flex content-center">
+                        <img src="src/arrow.svg">
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="modal" id="formModal2">
+            <div class="bg-primary w-full max-w-full sm:max-w-[500px] p-7 rounded-2xl relative">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg ">2 игрок</h3>
+                </div>
+                <div class="modal-body flex flex-row gap-2">
+                    <input class="input flex-1 min-w-0" id="player2Input" type="text" placeholder="Введите имя игрока" required />
+                    <button id="next_btn2" class="btn w-auto px-4 flex content-center">
+                        <img src="src/arrow.svg">
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="mainPage" class="hidden min-h-screen bg-bg flex flex-col items-center justify-between py-10">
+        <div class="flex items-center justify-between w-full mt-[100px] px-10 ">
+            <div class="flex-col justify-items-center w-[300px]">
+                <img src="src/ghost1.svg" alt="Ghost" class="animate-pulse w-[300px] h-[320px]">
+                <p class="text-2xl" >Игрок 1</p>
+            </div>
+            <div class="flip-card w-[300px] h-[400px] cursor-pointer" style="perspective:1000px;">
+                <div class="flip-inner relative w-full h-full transition-transform duration-500" style="transform-style:preserve-3d;">
+                    <div class="absolute inset-0 bg-primary rounded-2xl flex-col justify-items-center" style="backface-visibility:hidden;">
+                        <p class="shine-effect mt-8 text-xl font-bold">Сладость</p>
+                        <img src="src/sweet1.svg" class="mt-[70px] w-[150px] h-[150px]">
+                    </div>
+                    <div class="absolute inset-0 bg-secondary rounded-2xl flex flex-col items-center justify-center px-5 text-center"
+                         style="backface-visibility:hidden; transform:rotateY(180deg);">
+                        <p id="sweetText" class="text-lg leading-relaxed"></p>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="flip-card w-[300px] h-[400px] cursor-pointer" style="perspective:1000px;">
+                <div class="flip-inner relative w-full h-full transition-transform duration-500 " id="inner2" style="transform-style:preserve-3d;">
+                    <div class="absolute inset-0 bg-primary rounded-2xl flex-col justify-items-center" style="backface-visibility:hidden;">
+                        <p class="shine-effect mt-8 text-xl font-bold">Гадость</p>
+                        <img src="src/dirt1.svg" class="mt-[70px] w-[150px] h-[150px]">
+                    </div>
+                    <div class="absolute inset-0 bg-secondary rounded-2xl flex flex-col items-center justify-center px-5 text-center"
+                         style="backface-visibility:hidden; transform:rotateY(180deg);">
+                        <p id="trickText" class="text-lg leading-relaxed"></p>
+                    </div>
+
+                </div>
+            </div>
+            <div class="flex-col justify-items-center w-[300px]">
+                <img src="src/ghost2.svg" alt="Ghost" class="animate-pulse w-[300px] h-[320px]">
+                <p class="text-2xl" >Игрок 2</p>
+            </div>
+        </div>
+        <button id="doneTaskBtn" class="btn  mt-6 mb-2">Задание выполнено</button>
+        <button id="nextTaskBtn" class="btn mb-6 bg-color-background text-accent hover:bg-text-muted">Поменять карточки</button>
+
+
+    </section>
+</body>
+<script src="js/flipCard.js"></script>
+<script src="js/modal.js"></script>
+<script src="js/tasks.js"></script>
+</html>
